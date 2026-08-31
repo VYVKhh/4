@@ -7,8 +7,8 @@
 #   3) هذا الملف يُنشأ عادة تلقائيًا عبر أمر "fly launch"، لكن يمكنك
 #      استخدام هذا الملف الجاهز مباشرة وتخطي fly launch إن أحببت.
 
-app = "multaqa-ilm-thaqafi"       # غيّر هذا الاسم قبل النشر
-primary_region = "fra"            # فرانكفورت مثلًا؛ غيّرها حسب الأقرب لك
+app = "science-religion-forum"    # تم تعديله
+primary_region = "fra"            # فرانكفورت (أقرب للشرق الأوسط)
 
 [build]
 
