@@ -1,0 +1,41 @@
+# إعدادات نشر Fly.io لموقع مؤسسة ملتقى العلم والثقافية
+#
+# قبل التشغيل:
+#   1) غيّر app = "..." أدناه إلى اسم فريد لتطبيقك (سيصبح جزءًا من الرابط
+#      باسم https://اسمك.fly.dev). لا تستخدم مسافات أو حروف عربية.
+#   2) اختر المنطقة الأقرب لك في primary_region (راجع: fly platform regions)
+#   3) هذا الملف يُنشأ عادة تلقائيًا عبر أمر "fly launch"، لكن يمكنك
+#      استخدام هذا الملف الجاهز مباشرة وتخطي fly launch إن أحببت.
+
+app = "multaqa-ilm-thaqafi"       # غيّر هذا الاسم قبل النشر
+primary_region = "fra"            # فرانكفورت مثلًا؛ غيّرها حسب الأقرب لك
+
+[build]
+
+[env]
+  PORT = "8080"
+  # اختياري: إن كنت تنشر داخل مسار فرعي فقط، أضف APP_BASE_PATH هنا.
+  # ADMIN_USERNAME و ADMIN_PASSWORD يُفضَّل ضبطهما كـ secrets وليس هنا
+  # (عبر أمر: fly secrets set ADMIN_USERNAME=... ADMIN_PASSWORD=...)
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  memory = "256mb"
+  cpu_kind = "shared"
+  cpus = 1
+
+# القرص الدائم لحفظ المحتوى والصور والجلسات (data/content.json،
+# data/uploads، data/sessions.json، data/admin.json).
+# أنشئه أولًا بالأمر:
+#   fly volumes create site_data --size 1 --region fra
+# (اجعل --region مطابقة لـ primary_region أعلاه)
+[mounts]
+  source = "site_data"
+  destination = "/app/data"
